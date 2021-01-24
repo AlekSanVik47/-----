@@ -15,10 +15,7 @@ public class Participants  {
 
     }
 
-
-
-
-    private List<Cat> arraysCats () {
+    public List<Cat> arraysCats () {
         this.cats = new ArrayList<>();
         Cat cat = new Cat(300, 1.1, "Baris");
         Cat cat1 = new Cat(50, 0.5, "Laska");
@@ -33,7 +30,7 @@ public class Participants  {
         return cats;
     }
 
-    private List<Robot> robotArrayList(){
+    public List<Robot> robotArrayList(){
         this.robots = new ArrayList<>();
         Robot robot = new Robot(1000, 1.05,"Rob_0");
         Robot robot1 = new Robot(1200, 1.5,"Rob_1");
@@ -43,7 +40,7 @@ public class Participants  {
         robots.add(robot2);
         return robots;
     }
-    private List<Man> manArrayList(){
+    public List<Man> manArrayList(){
         this.mens = new ArrayList<>();
         Man man = new Man(2500,1.2,"Jon");
         Man man1 = new Man(3500,1.5,"Nik");
@@ -51,7 +48,7 @@ public class Participants  {
         mens.add(man1);
         return mens;
     }
-    private ArrayList<List<Object>> allParticipants(List<Cat> cats, List<Robot> robots, List<Man> mens){
+    public ArrayList<List<Object>> allParticipants(List<Cat> cats, List<Robot> robots, List<Man> mens){
         this.allParticipants = new ArrayList<List<Object>>(cats.size() + robots.size() + mens.size());
         this.cats = arraysCats ();
         this.robots = robotArrayList();
@@ -59,20 +56,28 @@ public class Participants  {
         allParticipants.add(Collections.singletonList(cats));
         allParticipants.add(Collections.singletonList(robots));
         allParticipants.add(Collections.singletonList(mens));
-        System.out.println(allParticipants);
+        //System.out.println(allParticipants);
         return allParticipants;
     }
 
     public static void main(String[] args) {
 
-        List<Cat> cats = new ArrayList<Cat>(){};
-        List<Robot> robots = new ArrayList<Robot>(){};
-        List<Man> mens = new ArrayList<Man>(){};
-        Participants participants = new Participants(cats,robots,mens);
-        cats = participants.arraysCats();
-        robots = participants.robotArrayList();
-        mens = participants.manArrayList();
-        participants.allParticipants(cats, robots, mens);
 
+    }
+
+    public ArrayList<List<Object>> getAllParticipants() {
+        return allParticipants;
+    }
+
+    public List<Cat> getCats() {
+        return cats;
+    }
+
+    public List<Robot> getRobots() {
+        return robots;
+    }
+
+    public List<Man> getMens() {
+        return mens;
     }
 }

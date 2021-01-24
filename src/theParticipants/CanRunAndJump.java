@@ -1,6 +1,11 @@
 package theParticipants;
 
-public interface CanRunAndJump {
+import obstacles.Obstacles;
+
+public interface CanRunAndJump extends Obstacles {
 	double run();
 	double jump();
+
+	@Override
+	boolean passed(CanRunAndJump participant);
 }

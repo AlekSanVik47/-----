@@ -31,16 +31,16 @@ public class Man implements CanRunAndJump {
 		return jumpingOver;
 	}
 
-	public int getDistance() {
-		return distance;
-	}
+	@Override
+	public boolean passed(CanRunAndJump participant) {
+		if (participant.run() > distance ||participant.jump() > jumpingOver) {
+			System.out.println("Участник " + participant + " успешно пробежал дистанцию");
+			return true;
+		} else {
+			System.out.println("Участник " + participant + " не смог пробежать дистанцию " + distance);
 
-	public double getJumpingOver() {
-		return jumpingOver;
-	}
-
-	public String getNickName() {
-		return nickName;
+		}
+		return false;
 	}
 
 	@Override
