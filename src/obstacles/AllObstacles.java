@@ -1,10 +1,10 @@
 package obstacles;
 
-
+import theParticipants.CanRunAndJump;
+import java.util.Arrays;
 import java.util.stream.Stream;
 
-
-public class AllObstacles {
+public class AllObstacles implements Obstacles {
 
     public Object[] allObstacles () {
         Wall[] walls = new Wall[5];
@@ -18,7 +18,12 @@ public class AllObstacles {
         Object[] allObstacles = Stream.of(walls,treadmills)
                 .flatMap(Stream::of)
                 .toArray();
-        //out.println(Arrays.toString(allObstacles));
-        return allObstacles;
+        System.out.println(Arrays.toString(allObstacles));
+        return  allObstacles;
+    }
+
+    @Override
+    public boolean passed(CanRunAndJump participant) {
+        return false;
     }
 }
