@@ -7,5 +7,5 @@ public interface CanRunAndJump extends Obstacles {
 	double jump();
 
 	@Override
-	boolean passed(CanRunAndJump participant);
+	boolean passed(Participants participant);
 }

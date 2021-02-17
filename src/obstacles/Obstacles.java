@@ -1,10 +1,10 @@
 package obstacles;
 
-import theParticipants.CanRunAndJump;
+import theParticipants.Participants;
 
 public interface Obstacles {
 	int obstacleNumber = 0;
-	boolean passed (CanRunAndJump participant);
+	boolean passed (Participants participant);
 }
 
 

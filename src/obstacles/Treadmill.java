@@ -1,8 +1,6 @@
 package obstacles;
 
-import theParticipants.CanRunAndJump;
-
-import java.util.Arrays;
+import theParticipants.Participants;
 
 public class Treadmill implements Obstacles{
 	int trackLength, obstacleNumber;
@@ -28,7 +26,7 @@ public static void main(String[] args) {
 }
 
 	@Override
-	public boolean passed(CanRunAndJump participant) {
+	public boolean passed(Participants participant) {
 		if (participant.run() > trackLength) {
 			System.out.println("Участник " + participant + " успешно пробежал дистанцию");
 			return true;

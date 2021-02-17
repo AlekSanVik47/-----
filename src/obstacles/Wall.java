@@ -1,9 +1,6 @@
 package obstacles;
 
-import theParticipants.CanRunAndJump;
-
-import java.util.Arrays;
-import java.util.Collection;
+import theParticipants.Participants;
 
 public class Wall implements Obstacles {
 double wallHeight;
@@ -28,7 +25,7 @@ public static void main(String[] args) {
 }
 
 	@Override
-	public boolean passed(CanRunAndJump participant) {
+	public boolean passed(Participants participant) {
 		if (participant.jump() > wallHeight) {
 			System.out.println("Участник " + participant + " успешно перепрыгнул стену");
 			return true;
