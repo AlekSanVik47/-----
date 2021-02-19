@@ -1,11 +1,15 @@
 package myCompetition;
 
 import obstacles.AllObstacles;
+import obstacles.Treadmill;
+import obstacles.Wall;
 import theParticipants.*;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 public class Competition {
+
 	List<Participants> participantsList = new ArrayList<>();
 	List<AllObstacles> allObstacles = new ArrayList<>();
     private List<Participants> winnerslist = new LinkedList<>();
@@ -67,11 +71,34 @@ public class Competition {
 		Participants participants = new Participants();
 		participants.addPartisipants(cat, cat1, cat2, cat3, cat4, robot, robot1, robot2, man, man1);
 
-		AllObstacles allObstacles = new AllObstacles();
-		allObstacles.allObstacles();
+
+
+		Wall[] walls = new Wall[5];
+		for (int i = 0; i < walls.length; i++) {
+			walls[i] = new Wall((i + 1) * 11, (i + 1) * 0.4);
+		}
+		Treadmill[] treadmills = new Treadmill[5];
+		for (int j = 0; j < treadmills.length; j++) {
+			treadmills[j] = new Treadmill((j + 1) * 10, (j + 1) * 300);
+		}
+		/*System.out.println(Arrays.toString(Stream.of(walls, treadmills)
+				.flatMap(Stream::of)
+				.toArray()));*/
+		/*Stream.of(walls, treadmills)
+				.flatMap(Stream::of)
+				.toArray();*/
+
+		List<AllObstacles> allObstacles = new ArrayList<>();
+		allObstacles.toArray(Stream.of(walls, treadmills)
+				.flatMap(Stream::of)
+				.toArray());
+
+		System.out.println(allObstacles);
 
 		Competition competition = new Competition("Test");
-		competition.setAllObstacles(Collections.singletonList(allObstacles));
+		competition.setAllObstacles(allObstacles);
+
+		List<Participants> participantsList = new ArrayList<>();
 
 		competition.setParticipantsList(Collections.singletonList(participants));
 		competition.startCompetition();
