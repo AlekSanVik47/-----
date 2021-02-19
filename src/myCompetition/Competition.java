@@ -1,6 +1,7 @@
 package myCompetition;
 
 import obstacles.AllObstacles;
+import obstacles.Obstacles;
 import obstacles.Treadmill;
 import obstacles.Wall;
 import theParticipants.*;
@@ -8,17 +9,16 @@ import theParticipants.*;
 import java.util.*;
 import java.util.stream.Stream;
 
+
+
 public class Competition {
 
 	List<Participants> participantsList = new ArrayList<>();
-	List<AllObstacles> allObstacles = new ArrayList<>();
+	List<Obstacles> allObstacles = new ArrayList<>();
     private List<Participants> winnerslist = new LinkedList<>();
 	private final String competitionTitle;
 
-	public Competition(List<AllObstacles> allObstacles, String competitionTitle) {
-		this.allObstacles = allObstacles;
-		this.competitionTitle = competitionTitle;
-	}
+
 
 	public void setParticipantsList(List<Participants> participantsList) {
 		this.participantsList = participantsList;
@@ -29,9 +29,7 @@ public class Competition {
 	}
 
 	public boolean passObstacles (Participants participants) {
-		/*AllObstacles obstacles = new AllObstacles();
-		AllObstacles[] allObstacles = ( AllObstacles[] ) obstacles.allObstacles();*/
-		for (AllObstacles obstacle : allObstacles) {
+		for (Obstacles obstacle : allObstacles) {
 			if (!obstacle.passed(participants)) {
 					return false;
 				}
@@ -49,13 +47,13 @@ public class Competition {
 					System.out.println("Участник " + participant + " покинул испытание");
 				} else {
 					winnerslist.add(participant);
-					System.out.println(winnerslist + "test");
+					System.out.println(winnerslist + " успешно преодолел припятствие");
 				}
 			});
 	}
 
 	public static void main(String[] args) {
-
+		List<Participants> participantsList;
 		Cat cat = new Cat(300, 1.1, "Baris");
 		Cat cat1 = new Cat(50, 0.5, "Laska");
 		Cat cat2 = new Cat(100, 1.5, "Jolly");
@@ -68,52 +66,42 @@ public class Competition {
 
 		Man man = new Man(2500, 1.2, "Jon");
 		Man man1 = new Man(3500, 1.5, "Nik");
-		Participants participants = new Participants();
-		participants.addPartisipants(cat, cat1, cat2, cat3, cat4, robot, robot1, robot2, man, man1);
+
+		participantsList = Arrays.asList(cat, cat1, cat2, cat3, cat4, robot, robot1, robot2, man, man1);
 
 
-
-		Wall[] walls = new Wall[5];
-		for (int i = 0; i < walls.length; i++) {
-			walls[i] = new Wall((i + 1) * 11, (i + 1) * 0.4);
+		List<Wall> walls = Arrays.asList(new Wall[5]);
+		for (int i = 0; i < walls.size(); i++) {
+			walls.set(i, new Wall((i + 1) * 11, (i + 1) * 0.4));
 		}
-		Treadmill[] treadmills = new Treadmill[5];
-		for (int j = 0; j < treadmills.length; j++) {
-			treadmills[j] = new Treadmill((j + 1) * 10, (j + 1) * 300);
+		List<Treadmill> treadmills = Arrays.asList(new Treadmill[5]);
+		for (int j = 0; j < treadmills.size(); j++) {
+			treadmills.set(j, new Treadmill((j + 1) * 10, (j + 1) * 300));
 		}
-		/*System.out.println(Arrays.toString(Stream.of(walls, treadmills)
+		/*Arrays.toString(Stream.of(walls, treadmills)
 				.flatMap(Stream::of)
-				.toArray()));*/
-		/*Stream.of(walls, treadmills)
-				.flatMap(Stream::of)
-				.toArray();*/
+				.toArray());*/
 
-		List<AllObstacles> allObstacles = new ArrayList<>();
-		allObstacles.toArray(Stream.of(walls, treadmills)
-				.flatMap(Stream::of)
-				.toArray());
-
-		System.out.println(allObstacles);
+		System.out.println(walls);
 
 		Competition competition = new Competition("Test");
-		competition.setAllObstacles(allObstacles);
+		List<List<? extends Obstacles>> result = new ArrayList<>();
+		for (List<? extends Obstacles> obstacles : Arrays.asList(walls, treadmills)) {
+			for (List<? extends Obstacles> list : Arrays.<List<? extends Obstacles>>asList(obstacles)) {
+				result.add(list);
+			}
+		}
+		competition.setAllObstacles(Arrays.toString(result.toArray()));
 
-		List<Participants> participantsList = new ArrayList<>();
-
-		competition.setParticipantsList(Collections.singletonList(participants));
+		competition.setParticipantsList(participantsList);
 		competition.startCompetition();
 	}
 
-	public List<Participants> getWinnerslist() {
-		return winnerslist;
+	private void setAllObstacles(String toString) {
 	}
 
-	public void setAllObstacles(List<AllObstacles> allObstacles) {
+	public void setAllObstacles(List<Obstacles> allObstacles) {
 		this.allObstacles = allObstacles;
-	}
-
-	public void setWinnerslist(List<Participants> winnerslist) {
-		this.winnerslist = winnerslist;
 	}
 }
 
