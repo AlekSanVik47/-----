@@ -1,28 +1,22 @@
 package myCompetition;
 
-import obstacles.AllObstacles;
 import obstacles.Obstacles;
 import obstacles.Treadmill;
 import obstacles.Wall;
 import theParticipants.*;
-
 import java.util.*;
-import java.util.stream.Stream;
-
 
 
 public class Competition {
 
 	List<Participants> participantsList = new ArrayList<>();
 	List<Obstacles> allObstacles = new ArrayList<>();
-    private List<Participants> winnerslist = new LinkedList<>();
+    private final List<Participants> winnerslist = new LinkedList<>();
 	private final String competitionTitle;
 
 
 
-	public void setParticipantsList(List<Participants> participantsList) {
-		this.participantsList = participantsList;
-	}
+
 
 	public Competition(String competitionTitle) {
 		this.competitionTitle = competitionTitle;
@@ -30,11 +24,8 @@ public class Competition {
 
 	public boolean passObstacles (Participants participants) {
 		for (Obstacles obstacle : allObstacles) {
-			if (!obstacle.passed(participants)) {
-					return false;
-				}
-				System.out.println();
-			}
+			if (!obstacle.passed(participants)) return false;
+		}
 		return true;
 		}
 
@@ -44,16 +35,17 @@ public class Competition {
 			participantsList.forEach(participant -> {
 				boolean success = passObstacles(participant);
 				if (!success) {
-					System.out.println("Участник " + participant + " покинул испытание");
+					System.out.println(participant + " покинул испытание");
 				} else {
 					winnerslist.add(participant);
-					System.out.println(winnerslist + " успешно преодолел припятствие");
 				}
 			});
+			if (!winnerslist.isEmpty())
+		System.out.println(winnerslist + " успешно преодолел припятствие");
 	}
 
 	public static void main(String[] args) {
-		List<Participants> participantsList;
+
 		Cat cat = new Cat(300, 1.1, "Baris");
 		Cat cat1 = new Cat(50, 0.5, "Laska");
 		Cat cat2 = new Cat(100, 1.5, "Jolly");
@@ -66,12 +58,14 @@ public class Competition {
 
 		Man man = new Man(2500, 1.2, "Jon");
 		Man man1 = new Man(3500, 1.5, "Nik");
-
-		participantsList = Arrays.asList(cat, cat1, cat2, cat3, cat4, robot, robot1, robot2, man, man1);
+//		Participants participants = new Participants();
+//		participants.addPartisipants(cat, cat1, cat2, cat3, cat4, man, man1, robot, robot1, robot2);
+		List<Participants> participantsList;
+		participantsList = Arrays.asList(cat, cat1, cat2, cat3, cat4, man, man1, robot, robot1, robot2);
 
 		List<Wall> walls = Arrays.asList(new Wall[5]);
 		for (int i = 0; i < walls.size(); i++) {
-			walls.set(i, new Wall((i + 1) * 11, (i + 1) * 0.4));
+			walls.set(i, new Wall((i + 1) * 11, (i + 1) * 0.2));
 		}
 		List<Treadmill> treadmills = Arrays.asList(new Treadmill[5]);
 		for (int j = 0; j < treadmills.size(); j++) {
@@ -85,8 +79,7 @@ public class Competition {
 		List<Obstacles> res1 = new ArrayList<Obstacles>();
 		res1.addAll(walls);
 		res1.addAll(treadmills);
-
-		System.out.println(res1);
+		//System.out.println(res1);
 
 		/*List<List<? extends Obstacles>> result = new ArrayList<>();
 		for (List<? extends Obstacles> obstacles : Arrays.asList(walls, treadmills)) {
@@ -95,13 +88,17 @@ public class Competition {
 			}
 		}*/
 		competition.setAllObstacles(res1);
-
 		competition.setParticipantsList(participantsList);
+		//System.out.println(participantsList);
 		competition.startCompetition();
 	}
-
 	public void setAllObstacles(List<Obstacles> allObstacles) {
 		this.allObstacles = allObstacles;
+	}
+
+
+	public void setParticipantsList(List<Participants> participantsList) {
+		this.participantsList = participantsList;
 	}
 }
 
