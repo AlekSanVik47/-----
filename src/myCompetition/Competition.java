@@ -14,15 +14,11 @@ public class Competition {
     private final List<Participants> winnerslist = new LinkedList<>();
 	private final String competitionTitle;
 
-
-
-
-
 	public Competition(String competitionTitle) {
 		this.competitionTitle = competitionTitle;
 	}
 
-	public boolean passObstacles (Participants participants) {
+	public boolean passObstacles (Participants participants) {    //проверка на преодоление припятствия
 		for (Obstacles obstacle : allObstacles) {
 			if (!obstacle.passed(participants)) return false;
 		}
@@ -30,9 +26,9 @@ public class Competition {
 		}
 
 	public void startCompetition() {
-		System.out.println("\nНачало соревнования " + competitionTitle);
-		winnerslist.clear();
-			participantsList.forEach(participant -> {
+		System.out.println("\nНачало соревнования " + competitionTitle); // объявляем соревнования
+		winnerslist.clear();                                            // очищаем лист победителей
+			participantsList.forEach(participant -> {                   // в цикле проверяем успешное прохождение припятствия и выводим результат
 				boolean success = passObstacles(participant);
 				if (!success) {
 					System.out.println(participant + " покинул испытание");
@@ -45,7 +41,7 @@ public class Competition {
 	}
 
 	public static void main(String[] args) {
-
+                 // создание массива участников
 		Cat cat = new Cat(300, 1.1, "Baris");
 		Cat cat1 = new Cat(50, 0.5, "Laska");
 		Cat cat2 = new Cat(100, 1.5, "Jolly");
@@ -58,11 +54,11 @@ public class Competition {
 
 		Man man = new Man(2500, 1.2, "Jon");
 		Man man1 = new Man(3500, 1.5, "Nik");
-//		Participants participants = new Participants();
-//		participants.addPartisipants(cat, cat1, cat2, cat3, cat4, man, man1, robot, robot1, robot2);
+
 		List<Participants> participantsList;
 		participantsList = Arrays.asList(cat, cat1, cat2, cat3, cat4, man, man1, robot, robot1, robot2);
-
+//_________________________________________________________________________________________________________________
+		// создание массива припятствий
 		List<Wall> walls = Arrays.asList(new Wall[5]);
 		for (int i = 0; i < walls.size(); i++) {
 			walls.set(i, new Wall((i + 1) * 11, (i + 1) * 0.2));
@@ -75,7 +71,8 @@ public class Competition {
 				.flatMap(Stream::of)
 				.toArray());*/
 
-		Competition competition = new Competition("Test");
+		Competition competition = new Competition("Эстафета_2021"); // создание соревнований
+		// добавление припятствий в коллекцию
 		List<Obstacles> res1 = new ArrayList<Obstacles>();
 		res1.addAll(walls);
 		res1.addAll(treadmills);
@@ -87,15 +84,14 @@ public class Competition {
 				result.add(list);
 			}
 		}*/
-		competition.setAllObstacles(res1);
-		competition.setParticipantsList(participantsList);
+		competition.setAllObstacles(res1); // передаем припятствия
+		competition.setParticipantsList(participantsList); // передаем участников
 		//System.out.println(participantsList);
-		competition.startCompetition();
+		competition.startCompetition(); // начинаем соревнования
 	}
 	public void setAllObstacles(List<Obstacles> allObstacles) {
 		this.allObstacles = allObstacles;
 	}
-
 
 	public void setParticipantsList(List<Participants> participantsList) {
 		this.participantsList = participantsList;
