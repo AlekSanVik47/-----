@@ -69,7 +69,6 @@ public class Competition {
 
 		participantsList = Arrays.asList(cat, cat1, cat2, cat3, cat4, robot, robot1, robot2, man, man1);
 
-
 		List<Wall> walls = Arrays.asList(new Wall[5]);
 		for (int i = 0; i < walls.size(); i++) {
 			walls.set(i, new Wall((i + 1) * 11, (i + 1) * 0.4));
@@ -82,22 +81,23 @@ public class Competition {
 				.flatMap(Stream::of)
 				.toArray());*/
 
-		System.out.println(walls);
-
 		Competition competition = new Competition("Test");
-		List<List<? extends Obstacles>> result = new ArrayList<>();
+		List<Obstacles> res1 = new ArrayList<Obstacles>();
+		res1.addAll(walls);
+		res1.addAll(treadmills);
+
+		System.out.println(res1);
+
+		/*List<List<? extends Obstacles>> result = new ArrayList<>();
 		for (List<? extends Obstacles> obstacles : Arrays.asList(walls, treadmills)) {
 			for (List<? extends Obstacles> list : Arrays.<List<? extends Obstacles>>asList(obstacles)) {
 				result.add(list);
 			}
-		}
-		competition.setAllObstacles(Arrays.toString(result.toArray()));
+		}*/
+		competition.setAllObstacles(res1);
 
 		competition.setParticipantsList(participantsList);
 		competition.startCompetition();
-	}
-
-	private void setAllObstacles(String toString) {
 	}
 
 	public void setAllObstacles(List<Obstacles> allObstacles) {
